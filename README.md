@@ -1,7 +1,10 @@
 ```markdown
 # HestiaCP phpMyAdmin SSO and API Access Guide
 
-This document provides a comprehensive guide to installing HestiaCP, enabling and troubleshooting phpMyAdmin Single Sign-On (SSO), and verifying API access. It also includes a quick test to validate SSO functionality across multiple databases.
+This document provides a comprehensive guide to installing HestiaCP,
+enabling and troubleshooting phpMyAdmin Single Sign-On (SSO),
+and verifying API access.
+It also includes a quick test to validate SSO functionality across multiple databases.
 
 ---
 
@@ -24,7 +27,7 @@ This document provides a comprehensive guide to installing HestiaCP, enabling an
 - Update and upgrade the system:
 
 ```bash
-sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y && apt-get install ca-certificates
 ```
 
 ### 1.2 Downloading and Running the Installation Script
