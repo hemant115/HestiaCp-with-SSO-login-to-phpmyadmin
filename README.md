@@ -128,7 +128,3 @@ To verify that phpMyAdmin SSO works across multiple databases:
 ## 📬 Feedback & Contributions
 
 Feel free to fork, improve, or suggest enhancements to this guide. Pull requests are welcome!
-
-```
-
----
