@@ -2,8 +2,7 @@
 # HestiaCP phpMyAdmin SSO and API Access Guide
 
 This document provides a comprehensive guide to installing HestiaCP,
-enabling and troubleshooting phpMyAdmin Single Sign-On (SSO),
-and verifying API access.
+enabling and troubleshooting phpMyAdmin Single Sign-On (SSO) and verifying API access.
 It also includes a quick test to validate SSO functionality across multiple databases.
 
 ---
