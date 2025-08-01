@@ -1,5 +1,3 @@
----
-
 ```markdown
 # HestiaCP phpMyAdmin SSO and API Access Guide
 
