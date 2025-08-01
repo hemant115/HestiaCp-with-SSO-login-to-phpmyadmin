@@ -1,5 +1,3 @@
-Sure, Hemant! Here's a well-structured and professional `README.md` file for your HestiaCP phpMyAdmin SSO and API access guide. I've formatted it using GitHub-flavored Markdown and added clarity, modularity, and a touch of polish to make it easy to follow and reuse.
-
 ---
 
 ```markdown
@@ -134,5 +132,3 @@ Feel free to fork, improve, or suggest enhancements to this guide. Pull requests
 ```
 
 ---
-
-Would you like me to tailor this for GitHub Pages or add badges and versioning info?
