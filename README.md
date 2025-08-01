@@ -1,5 +1,5 @@
 ```markdown
-# HestiaCP phpMyAdmin SSO and API Access Guide
+✅ Fully Functional SSO and API Access Guide for HestiaCP phpMyAdmin
 
 This document provides a comprehensive guide to installing HestiaCP,
 enabling and troubleshooting phpMyAdmin Single Sign-On (SSO) and verifying API access.
