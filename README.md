@@ -1,97 +1,138 @@
-# HestiaCp-with-SSO-login-to-phpmyadmin
+Sure, Hemant! Here's a well-structured and professional `README.md` file for your HestiaCP phpMyAdmin SSO and API access guide. I've formatted it using GitHub-flavored Markdown and added clarity, modularity, and a touch of polish to make it easy to follow and reuse.
 
-HestiaCP phpMyAdmin SSO and API access
-This document provides a comprehensive guide to installing HestiaCP, troubleshooting phpMyAdmin Single Sign-On (SSO) issues, and verifying API access.
-Table of contents
-HestiaCP installation
-Enabling phpMyAdmin SSO
-Troubleshooting phpMyAdmin SSO
-Verifying HestiaCP API access
-1. HestiaCP installation
-This section guides you through the initial setup of your HestiaCP instance.
-1.1. Preparing the server
-Use a fresh Debian or Ubuntu server (HestiaCP does not support RHEL-based systems).
-Ensure root access and SSH connectivity.
-Update and upgrade the system:
-bash
+---
+
+```markdown
+# HestiaCP phpMyAdmin SSO and API Access Guide
+
+This document provides a comprehensive guide to installing HestiaCP, enabling and troubleshooting phpMyAdmin Single Sign-On (SSO), and verifying API access. It also includes a quick test to validate SSO functionality across multiple databases.
+
+---
+
+## 📚 Table of Contents
+
+1. [HestiaCP Installation](#1-hestiacp-installation)  
+2. [Enabling phpMyAdmin SSO](#2-enabling-phpmyadmin-sso)  
+3. [Troubleshooting phpMyAdmin SSO](#3-troubleshooting-phpmyadmin-sso)  
+4. [Verifying HestiaCP API Access](#4-verifying-hestiacp-api-access)  
+5. [SSO Functionality Test](#5-sso-functionality-test)
+
+---
+
+## 1. HestiaCP Installation
+
+### 1.1 Preparing the Server
+
+- Use a fresh **Debian** or **Ubuntu** server (RHEL-based systems are not supported).
+- Ensure **root access** and **SSH connectivity**.
+- Update and upgrade the system:
+
+```bash
 sudo apt update && sudo apt upgrade -y
-Use code with caution.
+```
 
-1.2. Downloading and running the installation script
-Download the installation script:
-bash
+### 1.2 Downloading and Running the Installation Script
+
+- Download the official installation script:
+
+```bash
 wget https://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install.sh
-Use code with caution.
+```
 
-Run the script with superuser privileges, adding optional flags for desired components (e.g., Nginx, Apache, PHP-FPM, etc.):
-bash
+- Run the script with desired components:
+
+```bash
 sudo bash hst-install.sh --apache yes --nginx yes --phpfpm yes --mysql yes --exim yes --dovecot yes --clamav yes --spamassassin yes --iptables yes --fail2ban yes
-Use code with caution.
+```
 
-Follow the on-screen prompts, providing an admin email and an FQDN hostname.
-Note down the admin URL and login credentials upon successful installation.
-Reboot the server as instructed.
-2. Enabling phpMyAdmin SSO
-Once HestiaCP is installed, follow these steps to enable phpMyAdmin SSO:
-Login to your HestiaCP control panel.
-Navigate to Server Settings > Databases.
-Locate and enable "phpMyAdmin Single Sign On".
-Click on a database from the "List Databases" section to access it directly via phpMyAdmin.
-3. Troubleshooting phpMyAdmin SSO
-If phpMyAdmin SSO doesn't work after enabling it, follow these troubleshooting steps:
-3.1. API connection and IP whitelist
-API Status: Go to Server Settings > Configure > Security > API and confirm that API access is Enabled.
-Whitelist Public IP: Add your VPS's public IP address to the allowed IPs in the HestiaCP server settings.
-Restart Services: Consider restarting Apache/Nginx and the Hestia control panel service for changes to take effect.
-3.2. Security token mismatch
-Disable/Enable SSO: Go to Server Settings > Configure > Databases > phpMyAdmin Single Sign On, disable it, save, then re-enable it and save again.
-Firewall/Proxy: Temporarily disable any firewalls or proxies and retry the SSO connection.
-Link Expiration: If the link has expired, refresh the database page and try again.
-3.3. File permissions and ownership
-Incorrect File Group: If /etc/phpmyadmin has the wrong file group (e.g., hestiamail instead of www-data), use this command to correct it:
-bash
-sudo chown -R root:www-data /etc/phpmyadmin/
-Use code with caution.
+- Follow the prompts:
+  - Provide an **admin email** and **FQDN hostname**.
+  - Note the **admin URL** and **login credentials**.
+  - Reboot the server when prompted.
 
-Other Permissions: Check and correct permissions for phpMyAdmin files:
-bash
-sudo chmod -R 755 /etc/phpmyadmin/
-sudo chown -R hestiamail:www-data /usr/share/phpmyadmin/tmp/
-Use code with caution.
+---
 
-3.4. Reconfiguring phpMyAdmin
-Re-run Configuration: Try re-running the phpMyAdmin configuration:
-bash
-sudo dpkg-reconfigure phpmyadmin
-Use code with caution.
+## 2. Enabling phpMyAdmin SSO
 
-Manual Installation Script: Consider re-running the phpMyAdmin installation script if available.
-PMA User Password: If necessary, correct the pma user's password in the phpMyAdmin configuration file.
-3.5. Apache and phpMyAdmin integration
-Apache Configuration: If using Apache, ensure the line Include /etc/phpmyadmin/apache.conf exists in your Apache configuration file (e.g., /etc/apache2/apache2.conf).
-Restart Apache: After any changes to Apache configuration, restart the service:
-bash
+Once HestiaCP is installed:
+
+1. Log in to the HestiaCP control panel.
+2. Navigate to:  
+   `Server Settings > Databases`
+3. Enable the toggle for **phpMyAdmin Single Sign On**.
+4. Access any database directly via phpMyAdmin from the **List Databases** section.
+
+---
+
+## 3. Troubleshooting phpMyAdmin SSO
+
+### 3.1 API Connection and IP Whitelist
+
+- **API Status**:  
+  Go to `Server Settings > Configure > Security > API` and ensure API access is **Enabled**.
+
+- **Whitelist Public IP**:  
+  Add your VPS's public IP to the **Allowed IPs** list.
+
+- **Restart Services**:  
+  Restart Apache/Nginx and the HestiaCP service:
+
+```bash
 sudo systemctl restart apache2
-Use code with caution.
+sudo systemctl restart nginx
+sudo systemctl restart hestia
+```
 
-3.6. Review logs
-HestiaCP Logs: Check logs in /var/log/hestia/* for errors related to phpMyAdmin SSO or API issues.
-Apache/Nginx Logs: Examine Apache (e.g., /var/log/apache2/error.log) or Nginx logs for error messages related to phpMyAdmin or SSO.
-4. Verifying HestiaCP API access
-This section explains how to verify that the HestiaCP API is functioning correctly.
-4.1. Access key and secret key authentication
-Generate Access Key and Secret Key: Generate an Access Key and Secret Key within HestiaCP (or via the command line, as described in the documentation). The format will be <ACCESS_KEY>:<SECRET_KEY>.
-Use cURL for testing:
-bash
-curl -k -X POST \
-  --url https://your-server-ip:8083/api/ \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  --data 'hash=ACCESS_KEY:SECRET_KEY&cmd=v-list-web-domains&arg1=admin&returncode=yes'
-Use code with caution.
+### 3.2 Security Token Mismatch
 
-Interpreting the Response:
-A successful response will include a list of web domains and a return code of 0.
-Error responses will have a non-zero return code and an error message (e.g., 10 for E_FORBIDEN, 15 for E_CONNECT).
-4.2. HestiaCP API examples repository
-Explore the HestiaCP API Examples repository for scripts and examples in various programming languages.
-By following these instructions, you should be able to successfully install HestiaCP, enable phpMyAdmin SSO, and troubleshoot any issues that arise. If you continue to experience problems, consult the HestiaCP community forum for further assistance.
+- **Toggle SSO**:  
+  Disable and re-enable phpMyAdmin SSO under `Server Settings > Configure > Databases`.
+
+- **Firewall/Proxy**:  
+  Temporarily disable any firewall or proxy and retry the SSO login.
+
+- **Link Expiration**:  
+  Refresh the database page and click again if the link has expired.
+
+---
+
+## 4. Verifying HestiaCP API Access
+
+To confirm API functionality:
+
+1. Navigate to `Server Settings > Configure > Security > API`.
+2. Ensure API access is **Enabled**.
+3. Use curl or Postman to test API endpoints (e.g., list users, databases).
+4. Confirm that responses are valid and authentication works.
+
+---
+
+## 5. SSO Functionality Test
+
+To verify that phpMyAdmin SSO works across multiple databases:
+
+1. Create at least **two or more databases** via HestiaCP.
+2. Go to `List Databases` and click each database entry.
+3. Confirm that each opens directly in phpMyAdmin without requiring manual login.
+
+✅ If all databases open seamlessly, SSO is functioning correctly.
+
+---
+
+## 🛠️ Notes
+
+- Always keep your HestiaCP instance updated for security patches.
+- Avoid using browser extensions or proxies that may interfere with token-based redirects.
+- For advanced debugging, inspect logs under `/var/log/hestia/` and `/var/log/nginx/`.
+
+---
+
+## 📬 Feedback & Contributions
+
+Feel free to fork, improve, or suggest enhancements to this guide. Pull requests are welcome!
+
+```
+
+---
+
+Would you like me to tailor this for GitHub Pages or add badges and versioning info?
